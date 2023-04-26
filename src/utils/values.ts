@@ -1,0 +1,91 @@
+import facebookSvg from "../assets/svg/facebook.svg";
+import instagramSvg from "../assets/svg/instagram.svg";
+import whatsappSvg from "../assets/svg/whatsapp.svg";
+import telegramSvg from "../assets/svg/telegram.svg";
+import twitterSvg from "../assets/svg/twitter.svg";
+
+export const DEPOSER_ANNONCE = "Déposer une annonce";
+
+export const PASSWORD_MAX_LENGTH = 60;
+export const PASSWORD_MIN_LENGTH = 6;
+export const EMAIL_MAX_LENGTH = 324;
+
+export const EMAIL_PLACEHOLDER = "Adresse e-mail";
+export const PASSWORD_PLACEHOLDER = "Mot de passe";
+export const PASSWORD_ERROR_MESSAGE_PATTERN =
+    "The password can only contain ASCII characters";
+export const PASSWORD_ERROR_MESSAGE_LENGTH = `Le mot de passe doit être entre ${PASSWORD_MIN_LENGTH} et ${PASSWORD_MAX_LENGTH} caractères`;
+export const EMAIL_ERROR_MESSAGE = "Adresse email invalide";
+
+export const UNEXPECTED_ERROR =
+    "Une erreur inattendue s'est produite, veuillez réessayer.";
+export const NETWORK_ERROR_TITLE = "Erreur de connexion!";
+export const NETWORK_ERROR_HELPER =
+    "veuillez vérifier votre connexion Internet et réessayer.";
+export const NETWORK_ERROR = `${NETWORK_ERROR_TITLE}. ${NETWORK_ERROR_HELPER}`;
+export const EMAIL_EXISTS_ERROR = "Un compte avec cet email existe déjà";
+
+export const USER_DOESNT_EXIST_ERROR =
+    "Aucun compte n'existe sur cette adresse e-mail";
+
+/**
+ * Whatsapp number
+ */
+export const WHATSAPP = "+223 99 99 99 99";
+
+/**
+ * Phone numbers for contact
+ */
+export const TELEPHONE_CONTACTS = [WHATSAPP, "+223 99 99 99 99"];
+
+/**
+ * Email address for contact
+ */
+export const EMAIL_CONTACT = "contact@Online Shop.com";
+
+export const ABOUT = { label: "À propos de Online Shop", href: "/about" };
+
+export const HOME = {
+    label: "Accueil",
+    href: "/",
+};
+
+/**
+ *
+ */
+export const FOOTER_MIDDLE_SECTION: {
+    label: string;
+    href: string;
+    isExternal?: boolean;
+}[] = [HOME, ABOUT];
+
+/**
+ * Social medias references
+ */
+export const SOCIALS = [
+    {
+        alt: "Compte whatsapp de Online Shop",
+        src: whatsappSvg,
+        link: `https://wa.me/${WHATSAPP.replaceAll(" ", "")}`,
+    },
+    {
+        alt: "Compte facebook de Online Shop",
+        src: facebookSvg,
+        link: "/",
+    },
+    {
+        alt: "Compte instagram de Online Shop",
+        src: instagramSvg,
+        link: "/",
+    },
+    {
+        alt: "Compte telegram de Online Shop",
+        src: telegramSvg,
+        link: "https://t.me/Online Shop",
+    },
+    {
+        alt: "Compte twitter de Online Shop",
+        src: twitterSvg,
+        link: "/",
+    },
+];

@@ -1,23 +1,18 @@
-import React, {
-    ChangeEvent,
-    Component,
-    FormEvent,
-    PropsWithChildren,
-} from "react";
-import { Stack, Typography, Button } from "@mui/material";
-import BackdropLoading from "../BackdropLoading";
-import Input from "../Input";
-import PasswordInput from "./PasswordInput";
-import {
-    EMAIL_MAX_LENGTH,
-    PASSWORD_MAX_LENGTH,
-    EMAIL_ERROR_MESSAGE,
-    EMAIL_PLACEHOLDER,
-    PASSWORD_PLACEHOLDER,
-} from "../../utils/values";
+import { Button, Stack, Typography } from "@mui/material";
+import { ChangeEvent, Component, FormEvent, PropsWithChildren } from "react";
 import isEmail from "validator/lib/isEmail";
 import { theme } from "../../utils/theme";
 import { passwordValidator } from "../../utils/validators";
+import {
+    EMAIL_ERROR_MESSAGE,
+    EMAIL_MAX_LENGTH,
+    EMAIL_PLACEHOLDER,
+    PASSWORD_MAX_LENGTH,
+    PASSWORD_PLACEHOLDER,
+} from "../../utils/values";
+import BackdropLoading from "../BackdropLoading";
+import Input from "../Input";
+import PasswordInput from "./PasswordInput";
 
 type Props = PropsWithChildren & {
     title: string;
@@ -101,7 +96,7 @@ export default class AuthForm extends Component<Props, State> {
 
         return (
             <Stack alignItems="center" spacing={2}>
-                <Typography variant="subtitle1" pb={0.5}>
+                <Typography variant="h6" pb={0.5}>
                     {title}
                 </Typography>
                 {isLoading && <BackdropLoading />}

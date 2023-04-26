@@ -1,12 +1,12 @@
 /**
  * This component is the main layout for authorization
  */
-import React, { useContext } from "react";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
+import { useContext } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/online-shop-logo.png";
 import { AuthContext } from "../../config/auth.context";
@@ -25,7 +25,7 @@ export default function AuthLayout({
 }) {
     const location = useLocation(); // location used to check if navigate from another screen or not.
     const navigate = useNavigate(); // navigation used to programmatically navigate
-    const { user, isLoading } = useContext(AuthContext); // auth context
+    const { user, loading } = useContext(AuthContext); // auth context
 
     /**
      * Go back when auth isn't first shown
@@ -81,7 +81,7 @@ export default function AuthLayout({
                 />
             </Box>
             <Stack spacing={4} alignItems="center" flexGrow={1}>
-                {isLoading ? <LoadingBox /> : <Outlet />}
+                {loading ? <LoadingBox /> : <Outlet />}
             </Stack>
             <small
                 style={{

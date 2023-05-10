@@ -81,7 +81,13 @@ export default function AuthLayout({
                 />
             </Box>
             <Stack spacing={4} alignItems="center" flexGrow={1}>
-                {loading ? <LoadingBox /> : <Outlet />}
+                {loading ? (
+                    <Box sx={{ width: "100px" }}>
+                        <LoadingBox />
+                    </Box>
+                ) : (
+                    <Outlet />
+                )}
             </Stack>
             <small
                 style={{

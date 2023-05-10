@@ -1,15 +1,10 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { ChangeEvent, Component, FormEvent, PropsWithChildren } from "react";
 import isEmail from "validator/lib/isEmail";
+import TEXT_STRINGS from "../../utils/strings";
 import { theme } from "../../utils/theme";
 import { passwordValidator } from "../../utils/validators";
-import {
-    EMAIL_ERROR_MESSAGE,
-    EMAIL_MAX_LENGTH,
-    EMAIL_PLACEHOLDER,
-    PASSWORD_MAX_LENGTH,
-    PASSWORD_PLACEHOLDER,
-} from "../../utils/values";
+import { EMAIL_MAX_LENGTH, PASSWORD_MAX_LENGTH } from "../../utils/values";
 import BackdropLoading from "../BackdropLoading";
 import Input from "../Input";
 import PasswordInput from "./PasswordInput";
@@ -116,8 +111,8 @@ export default class AuthForm extends Component<Props, State> {
                         onChange={this.onChangeEmail}
                         value={this.state.email}
                         error={emailErr}
-                        errorMessage={EMAIL_ERROR_MESSAGE}
-                        placeholder={EMAIL_PLACEHOLDER}
+                        errorMessage={TEXT_STRINGS.auth.emailErrorMessage}
+                        placeholder={TEXT_STRINGS.auth.emailPlaceholder}
                         maxLength={EMAIL_MAX_LENGTH}
                     />
                     <PasswordInput
@@ -125,7 +120,7 @@ export default class AuthForm extends Component<Props, State> {
                         value={this.state.password}
                         error={passwordErr}
                         errorMessage={this.state.passwordErrorMessage}
-                        placeholder={PASSWORD_PLACEHOLDER}
+                        placeholder={TEXT_STRINGS.auth.passwordPlaceholder}
                         maxLength={PASSWORD_MAX_LENGTH}
                     />
                     <Button

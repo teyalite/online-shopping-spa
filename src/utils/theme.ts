@@ -18,6 +18,25 @@ export const theme = createTheme({
                 },
             },
         },
+        // MuiBottomNavigationAction: {
+        //     // todo
+        //     styleOverrides: {
+        //         iconOnly: {
+        //             background: "yellow",
+        //             width: "20%",
+        //             padding: 0,
+        //         },
+        //         label: {
+        //             background: "silver",
+        //         },
+        //         root: {
+        //             background: "blue",
+        //             height: "100%",
+        //             maxWidth: "20%",
+        //             padding: 0,
+        //         },
+        //     },
+        // },
         MuiAppBar: {
             styleOverrides: {
                 root: {
@@ -42,3 +61,5 @@ export const theme = createTheme({
         },
     },
 });
+
+export default theme;

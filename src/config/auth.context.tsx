@@ -10,8 +10,8 @@ import {
 import { Navigate, Outlet } from "react-router-dom";
 import LoadingBox from "../components/LoadingBox";
 import { AuthContextType, UserType } from "../types";
+import { sleep } from "../utils/sleep";
 import { auth } from "./firebase";
-import AppBarLayout from "../components/AppBarLayout";
 
 export const AuthContext = createContext<AuthContextType>({
     user: null,
@@ -24,11 +24,13 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            await sleep(3);
             console.log(user);
 
             if (user) {
                 setUser(user);
             } else {
+                // setUser({} as UserType);
                 setUser(null);
             }
 
@@ -67,12 +69,8 @@ export function Protected() {
     }
 
     if (user) {
-        return (
-            <AppBarLayout>
-                <Outlet />
-            </AppBarLayout>
-        );
+        return <Outlet />;
     }
 
-    return <Navigate to="/auth/login" />;
+    return <Navigate to="/auth" replace />;
 }

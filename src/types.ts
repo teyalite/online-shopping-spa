@@ -7,6 +7,23 @@ export interface AuthContextType {
     loading: boolean;
 }
 
+export interface Admin {}
+
+export interface AdminAuthContextType {
+    admin: null | Admin;
+    loading: boolean;
+    failed: boolean;
+    setAdmin: (admin: Admin) => void;
+    onRetry: () => void;
+}
+
+export interface ProductCategory {
+    id: number;
+    name: string;
+    parent?: number | null;
+    children?: ProductCategory[];
+}
+
 /**
  * Status indication the state of the email verification sending email
  * Sent: The verification code was sent sucessfully

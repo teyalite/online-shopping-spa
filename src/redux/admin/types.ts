@@ -7,8 +7,20 @@ export interface AdminCategoriesState {
     allCategories: ProductCategory[];
 }
 
+export interface AdminUsersState {
+    loading: boolean;
+    failed: boolean;
+    users: { email: string; uid: string }[];
+}
+
 export interface AdminState {
     categories: AdminCategoriesState;
+    users: AdminUsersState;
+}
+
+export interface FetchUsers {
+    type: AdminActionType.FetchUsers;
+    value: AdminUsersState;
 }
 
 export interface FetchCategories {
@@ -32,9 +44,14 @@ export enum AdminActionType {
     AddCategory = "AddCategory",
     UpdateCategory = "UpdateCategory",
     FetchCategories = "FetchCategories",
+    FetchUsers = "FetchUsers",
 }
 
-export type AdminAction = AddCategory | UpdateCategory | FetchCategories;
+export type AdminAction =
+    | AddCategory
+    | UpdateCategory
+    | FetchCategories
+    | FetchUsers;
 
 export const defaultAdminState: AdminState = {
     categories: {
@@ -42,5 +59,10 @@ export const defaultAdminState: AdminState = {
         failed: false,
         categories: [],
         allCategories: [],
+    },
+    users: {
+        loading: false,
+        failed: false,
+        users: [],
     },
 };

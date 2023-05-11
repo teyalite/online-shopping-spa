@@ -3,6 +3,7 @@ import { Button, Divider, List, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { Component, Fragment } from "react";
 import { ConnectedProps, connect } from "react-redux";
+import Loading from "../../components/Loading";
 import Category from "../../components/admin/Category";
 import CategoryForm from "../../components/admin/CategoryForm";
 import {
@@ -14,29 +15,6 @@ import { AppState } from "../../redux/store";
 import { ProductCategory } from "../../types";
 import { getRequest, postRequest, putRequest } from "../../utils/http";
 import { NETWORK_ERROR_TITLE } from "../../utils/strings";
-import Loading from "../../components/Loading";
-import { sleep } from "../../utils/sleep";
-
-// const categories: ProductCategory[] = [
-//     {
-//         id: 1,
-//         name: "Electronics",
-//         children: [
-//             { id: 2, name: "Smartphones", parent: 1 },
-//             { id: 3, name: "Watches", parent: 1 },
-//             { id: 4, name: "Headphones", parent: 1 },
-//         ],
-//     },
-//     {
-//         id: 12,
-//         name: "Clothes",
-//         children: [
-//             { id: 22, name: "Men", parent: 1 },
-//             { id: 23, name: "Women", parent: 1 },
-//             { id: 24, name: "Kids", parent: 1 },
-//         ],
-//     },
-// ];
 
 export function categoriesHelper(categories: ProductCategory[]) {
     const parents = categories.filter((category) => category.parent === null);

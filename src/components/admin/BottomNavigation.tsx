@@ -6,9 +6,10 @@ import MuiBottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { MouseEvent } from "react";
+import { MouseEvent, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { theme } from "../../utils/theme";
+import { AdminAuthContext } from "../../config/admin.context";
 
 export enum Values {
     Home,
@@ -47,6 +48,8 @@ export default function BottomNavigation() {
     const location = useLocation();
     const matches = useMediaQuery(theme.breakpoints.up("md"));
     const value = getTabValue(location.pathname);
+    const { loading, failed, admin } = useContext(AdminAuthContext);
+    const notLogged = loading || failed || !admin;
     const navigate = useNavigate();
 
     const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -54,7 +57,7 @@ export default function BottomNavigation() {
         navigate(new URL(e.currentTarget.href).pathname);
     };
 
-    if (matches) {
+    if (matches || notLogged) {
         return null;
     }
 

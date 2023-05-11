@@ -7,13 +7,16 @@ export interface AuthContextType {
     loading: boolean;
 }
 
-export interface Admin {}
+export interface Admin {
+    name: string;
+    email: string;
+}
 
 export interface AdminAuthContextType {
     admin: null | Admin;
     loading: boolean;
     failed: boolean;
-    setAdmin: (admin: Admin) => void;
+    setAdmin: (admin: Admin | null) => void;
     onRetry: () => void;
 }
 

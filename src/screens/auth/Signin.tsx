@@ -1,17 +1,13 @@
 import { Typography } from "@mui/material";
+import { FirebaseError } from "firebase/app";
+import { AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthForm, { linkStyle } from "../../components/auth/AuthForm";
-import {
-    AppleButton,
-    GoogleButton,
-    SignupButton,
-} from "../../components/auth/Buttons";
+import { SignupButton } from "../../components/auth/Buttons";
 import Separator from "../../components/auth/Separator";
-// import { FirebaseError } from "firebase/app";
-// import { signInWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
+import { auth } from "../../config/firebase";
 import { UNEXPECTED_ERROR, USER_DOESNT_EXIST_ERROR } from "../../utils/values";
-// import { auth } from "../../config/firebase";
 
 type Props = {};
 
@@ -34,16 +30,16 @@ export default class SigninScreen extends Component<Props, State> {
     }
 
     getErrorMessage(error: any): string {
-        // if (error instanceof FirebaseError) {
-        //     switch ((error as FirebaseError).code) {
-        //         case AuthErrorCodes.INVALID_PASSWORD:
-        //             return "Mot de passe incorrect";
-        //         case AuthErrorCodes.USER_DELETED:
-        //             return USER_DOESNT_EXIST_ERROR;
-        //         default:
-        //             break;
-        //     }
-        // }
+        if (error instanceof FirebaseError) {
+            switch ((error as FirebaseError).code) {
+                case AuthErrorCodes.INVALID_PASSWORD:
+                    return "Mot de passe incorrect";
+                case AuthErrorCodes.USER_DELETED:
+                    return USER_DOESNT_EXIST_ERROR;
+                default:
+                    break;
+            }
+        }
 
         return UNEXPECTED_ERROR;
     }
@@ -55,17 +51,17 @@ export default class SigninScreen extends Component<Props, State> {
         email: string;
         password: string;
     }) => {
-        // this.setState({ isLoading: true });
-        // try {
-        //     await signInWithEmailAndPassword(auth, email, password);
-        //     this.setState({ isLoading: false, message: "" });
-        // } catch (error: any) {
-        //     console.log(error);
-        //     this.setState({
-        //         isLoading: false,
-        //         message: this.getErrorMessage(error),
-        //     });
-        // }
+        this.setState({ isLoading: true });
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            this.setState({ isLoading: false, message: "" });
+        } catch (error: any) {
+            console.log(error);
+            this.setState({
+                isLoading: false,
+                message: this.getErrorMessage(error),
+            });
+        }
     };
 
     render(): React.ReactNode {

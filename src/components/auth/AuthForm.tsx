@@ -114,6 +114,7 @@ export default class AuthForm extends Component<Props, State> {
                         errorMessage={TEXT_STRINGS.auth.emailErrorMessage}
                         placeholder={TEXT_STRINGS.auth.emailPlaceholder}
                         maxLength={EMAIL_MAX_LENGTH}
+                        autoComplete="username"
                     />
                     <PasswordInput
                         onChange={this.onChangePassword}

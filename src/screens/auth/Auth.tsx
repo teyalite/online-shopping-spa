@@ -1,13 +1,7 @@
-import React from "react";
 import { Stack, Typography } from "@mui/material";
-import {
-    AppleButton,
-    GoogleButton,
-    SignupButton,
-    SigninButton,
-} from "../../components/auth/Buttons";
-import Separator from "../../components/auth/Separator";
 import { Helmet } from "react-helmet-async";
+import { SigninButton, SignupButton } from "../../components/auth/Buttons";
+import Separator from "../../components/auth/Separator";
 
 export default function AuthScreen() {
     return (

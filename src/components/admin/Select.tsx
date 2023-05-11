@@ -29,7 +29,6 @@ export default function Select({
     sx,
     onChange,
 }: Props) {
-    console.log(items, value);
     return (
         <FormControl sx={sx} size={size} error={error}>
             <MuiSelect

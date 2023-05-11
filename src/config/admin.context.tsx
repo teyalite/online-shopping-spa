@@ -1,3 +1,5 @@
+import { Stack, Typography } from "@mui/material";
+import { UNAUTHORIZED } from "http-status";
 import {
     PropsWithChildren,
     createContext,
@@ -6,9 +8,9 @@ import {
     useState,
 } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import Loading from "../components/Loading";
 import { Admin, AdminAuthContextType } from "../types";
 import { getRequest } from "../utils/http";
-import { UNAUTHORIZED } from "http-status";
 import { sleep } from "../utils/sleep";
 
 export const AdminAuthContext = createContext<AdminAuthContextType>({
@@ -33,25 +35,20 @@ export function AdminAuthContextProvider({ children }: PropsWithChildren) {
         setFailed(false);
 
         try {
+            await sleep(0);
             const admin = await getRequest<Admin>("/admin/auth/");
-            // todo:dev
-            await sleep(0.5);
             setLoading(false);
             setFailed(false);
             setUser(admin);
         } catch (error: any) {
-            // todo:dev
-            console.log(error);
-
             setFailed(
                 !(error.response && error.response.status === UNAUTHORIZED)
             );
-
             setLoading(false);
         }
     };
 
-    const setAdmin = (admin: Admin) => {
+    const setAdmin = (admin: Admin | null) => {
         setUser(admin);
     };
 
@@ -78,15 +75,15 @@ export function ProtectedAdmin() {
     const { admin, loading, failed, onRetry } = useContext(AdminAuthContext);
 
     if (loading || failed) {
-        return <h1>Loading or failed</h1>;
-        // return (
-        //     <Stack width="100%" height="100%" sx={{ background: "white" }}>
-        //         <SimpleAppBar />
-        //         <Stack alignItems="center" justifyContent="center" pt={20}>
-        //             <Loading failed={failed} onRetry={onRetry} />
-        //         </Stack>
-        //     </Stack>
-        // );
+        return (
+            <Stack width="100%" height="100%" sx={{ background: "white" }}>
+                <Stack alignItems="center" justifyContent="center" pt={10}>
+                    <Loading failed={failed} onRetry={onRetry}>
+                        <Typography>Try again</Typography>
+                    </Loading>
+                </Stack>
+            </Stack>
+        );
     }
 
     if (admin) {

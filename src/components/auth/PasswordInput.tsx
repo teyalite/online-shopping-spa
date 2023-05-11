@@ -63,6 +63,7 @@ class PasswordInput extends Component<Props, State> {
                     type={this.state.showPassword ? "text" : "password"}
                     value={value}
                     inputProps={{
+                        autoComplete: "current-password",
                         maxLength: maxLength,
                     }}
                     sx={inputStyles.input}

@@ -4,6 +4,7 @@ import whatsappSvg from "../assets/svg/whatsapp.svg";
 import telegramSvg from "../assets/svg/telegram.svg";
 import twitterSvg from "../assets/svg/twitter.svg";
 
+export const ADMIN_TOKEN_KEY = "ADMIN_TOKEN_KEY";
 export const PASSWORD_MAX_LENGTH = 60;
 export const PASSWORD_MIN_LENGTH = 6;
 export const EMAIL_MAX_LENGTH = 324;
@@ -17,7 +18,7 @@ export const EMAIL_ERROR_MESSAGE = "Invalid email address";
 
 export const UNEXPECTED_ERROR =
     "An unexpected error has occurred, please try again.";
-export const NETWORK_ERROR_TITLE = "Erreur de connexion!";
+export const NETWORK_ERROR_TITLE = "Connexion error!";
 export const NETWORK_ERROR_HELPER =
     "Please check your internet connection and try again.";
 export const NETWORK_ERROR = `${NETWORK_ERROR_TITLE}. ${NETWORK_ERROR_HELPER}`;

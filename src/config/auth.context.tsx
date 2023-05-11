@@ -24,13 +24,11 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            await sleep(3);
-            console.log(user);
+            await sleep(1);
 
             if (user) {
                 setUser(user);
             } else {
-                // setUser({} as UserType);
                 setUser(null);
             }
 

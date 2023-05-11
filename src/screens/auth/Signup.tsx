@@ -1,15 +1,11 @@
-import React, { Component } from "react";
+import { FirebaseError } from "firebase/app";
+import { AuthErrorCodes, createUserWithEmailAndPassword } from "firebase/auth";
+import { Component } from "react";
 import AuthForm from "../../components/auth/AuthForm";
-import {
-    AppleButton,
-    GoogleButton,
-    SigninButton,
-} from "../../components/auth/Buttons";
+import { SigninButton } from "../../components/auth/Buttons";
 import Separator from "../../components/auth/Separator";
-// import { FirebaseError } from "firebase/app";
-// import { AuthErrorCodes, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
 import { EMAIL_EXISTS_ERROR, UNEXPECTED_ERROR } from "../../utils/values";
-// import { auth } from "../../config/firebase";
 
 type Props = {};
 
@@ -32,12 +28,12 @@ export default class SignupScreen extends Component<Props, State> {
     }
 
     getErrorMessage(error: any): string {
-        // if (
-        //     error instanceof FirebaseError &&
-        //     (error as FirebaseError).code === AuthErrorCodes.EMAIL_EXISTS
-        // ) {
-        //     return EMAIL_EXISTS_ERROR;
-        // }
+        if (
+            error instanceof FirebaseError &&
+            (error as FirebaseError).code === AuthErrorCodes.EMAIL_EXISTS
+        ) {
+            return EMAIL_EXISTS_ERROR;
+        }
 
         return UNEXPECTED_ERROR;
     }
@@ -49,17 +45,17 @@ export default class SignupScreen extends Component<Props, State> {
         email: string;
         password: string;
     }) => {
-        // this.setState({ isLoading: true });
-        // try {
-        //     await createUserWithEmailAndPassword(auth, email, password);
-        //     this.setState({ isLoading: false, message: "" });
-        // } catch (error: any) {
-        //     console.log(error);
-        //     this.setState({
-        //         isLoading: false,
-        //         message: this.getErrorMessage(error),
-        //     });
-        // }
+        this.setState({ isLoading: true });
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            this.setState({ isLoading: false, message: "" });
+        } catch (error: any) {
+            console.log(error);
+            this.setState({
+                isLoading: false,
+                message: this.getErrorMessage(error),
+            });
+        }
     };
 
     render() {

@@ -12,6 +12,7 @@ type Props = {
     error: boolean;
     errorMessage: string;
     maxLength: number;
+    autoComplete?: any;
 };
 
 type State = {
@@ -35,6 +36,7 @@ class Input extends Component<Props, State> {
             error,
             errorMessage,
             maxLength,
+            autoComplete,
         } = this.props;
         return (
             <FormControl
@@ -53,6 +55,7 @@ class Input extends Component<Props, State> {
                     type={"text"}
                     value={value}
                     autoCapitalize="none"
+                    autoComplete={autoComplete}
                     onChange={onChange}
                 />
                 {error && (

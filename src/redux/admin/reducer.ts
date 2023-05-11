@@ -10,8 +10,20 @@ function adminReducer(
     action: AdminAction
 ): AdminState {
     switch (action.type) {
-        case AdminActionType.AddCategory:
+        case AdminActionType.FetchCategories:
+            state = {
+                ...state,
+                categories: {
+                    ...state.categories,
+                    ...action.value,
+                },
+            };
+
             return state;
+
+        case AdminActionType.AddCategory: {
+            return state;
+        }
 
         default:
             return state;

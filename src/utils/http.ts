@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ADMIN_TOKEN_KEY } from "./values";
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // todo: with credentials set to false
@@ -18,6 +19,10 @@ export function getRequest<T = any>(pathname: string): Promise<T> {
             method: "GET",
             url: url.href,
             withCredentials: true,
+
+            headers: {
+                Authorization: getToken(pathname),
+            },
         })
             .then((response) => {
                 resolve(response.data as T);
@@ -45,6 +50,10 @@ export function postRequest<T = any>(pathname: string, data: any): Promise<T> {
             url: url.href,
             data: data,
             withCredentials: true,
+
+            headers: {
+                Authorization: getToken(pathname),
+            },
         })
             .then((response) => {
                 resolve(response.data as T);
@@ -72,6 +81,10 @@ export function patchRequest<T = any>(pathname: string, data: any): Promise<T> {
             url: url.href,
             data: data,
             withCredentials: true,
+
+            headers: {
+                Authorization: getToken(pathname),
+            },
         })
             .then((response) => {
                 resolve(response.data as T);
@@ -99,6 +112,10 @@ export function putRequest<T = any>(pathname: string, data: any): Promise<T> {
             url: url.href,
             data: data,
             withCredentials: true,
+
+            headers: {
+                Authorization: getToken(pathname),
+            },
         })
             .then((response) => {
                 resolve(response.data as T);
@@ -129,6 +146,10 @@ export function deleteRequest<T = any>(
             url: url.href,
             data: data,
             withCredentials: true,
+
+            headers: {
+                Authorization: getToken(pathname),
+            },
         })
             .then((response) => {
                 resolve(response.data as T);
@@ -138,4 +159,15 @@ export function deleteRequest<T = any>(
                 reject(error);
             });
     });
+}
+
+function getToken(pathname: string): string | undefined {
+    if (
+        pathname.startsWith("/admin") &&
+        localStorage.getItem(ADMIN_TOKEN_KEY)
+    ) {
+        return "Bearer " + localStorage.getItem(ADMIN_TOKEN_KEY);
+    }
+
+    // return "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjgzODMxNTE2fQ.guVTj6rlz8iSt3vjKe5RTkrabWJ_VKKLxTgLxIrjPhE";
 }

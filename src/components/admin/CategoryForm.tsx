@@ -64,7 +64,11 @@ export default class CategoryForm extends Component<Props, State> {
     };
 
     handleSubmit = () => {
-        console.log("Submit");
+        this.props.onSubmit({
+            id: this.props.category ? this.props.category.id : undefined,
+            name: this.state.name,
+            parent: this.state.parent ? Number(this.state.parent) : undefined,
+        });
     };
 
     render() {

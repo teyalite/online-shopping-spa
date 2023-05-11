@@ -18,6 +18,7 @@ import { AdminAuthContext } from "../../config/admin.context";
 import { theme } from "../../utils/theme";
 import Logo from "../Logo";
 import { Values } from "./BottomNavigation";
+import { ADMIN_TOKEN_KEY } from "../../utils/values";
 
 /**
  * Get tab value
@@ -47,9 +48,18 @@ function getBarValue(pathname: string): Values {
 export default function AppBar() {
     const matches = useMediaQuery(theme.breakpoints.down("md"));
     const location = useLocation();
-    const { loading, failed, admin } = useContext(AdminAuthContext);
+    const { loading, failed, admin, setAdmin } = useContext(AdminAuthContext);
     const notLogged = loading || failed || !admin;
     const barValue = getBarValue(location.pathname);
+
+    const logout = () => {
+        try {
+            localStorage.removeItem(ADMIN_TOKEN_KEY);
+        } catch (error) {
+            console.log(error);
+        }
+        setAdmin(null);
+    };
 
     return (
         <MuiAppBar position="static" sx={styles.appBar} elevation={0}>
@@ -107,6 +117,7 @@ export default function AppBar() {
                                 startIcon={<Logout />}
                                 color="warning"
                                 variant="outlined"
+                                onClick={logout}
                                 disableElevation
                             >
                                 Logout

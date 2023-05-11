@@ -1,6 +1,6 @@
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "./values";
 
-export const NETWORK_ERROR_TITLE = "Erreur de connexion!";
+export const NETWORK_ERROR_TITLE = "Connexion error!";
 export const NETWORK_ERROR_HELPER =
     "Please check your internet connection and try again.";
 

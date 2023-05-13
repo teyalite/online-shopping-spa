@@ -16,6 +16,7 @@ import { auth } from "./firebase";
 export const AuthContext = createContext<AuthContextType>({
     user: null,
     loading: true,
+    setUser: () => {},
 });
 
 export function AuthContextProvider({ children }: PropsWithChildren) {
@@ -24,10 +25,10 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            await sleep(1);
+            await sleep(2);
 
             if (user) {
-                setUser(user);
+                setUser({ ...user, shop: undefined });
             } else {
                 setUser(null);
             }
@@ -38,8 +39,12 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
         return () => unsubscribe();
     }, []);
 
+    const setUserHelper = (user: UserType) => {
+        setUser(user);
+    };
+
     return (
-        <AuthContext.Provider value={{ user, loading }}>
+        <AuthContext.Provider value={{ user, loading, setUser: setUserHelper }}>
             {children}
         </AuthContext.Provider>
     );
@@ -50,6 +55,30 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
  * @returns
  */
 export function Protected() {
+    const { user, loading } = useContext(AuthContext);
+
+    if (loading) {
+        return (
+            <Stack
+                width="100%"
+                height="100%"
+                pb={15}
+                alignItems="center"
+                justifyContent="center"
+            >
+                <LoadingBox />
+            </Stack>
+        );
+    }
+
+    if (user) {
+        return <Outlet />;
+    }
+
+    return <Navigate to="/auth" replace />;
+}
+
+export function SellerProtected() {
     const { user, loading } = useContext(AuthContext);
 
     if (loading) {

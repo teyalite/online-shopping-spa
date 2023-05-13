@@ -1,5 +1,16 @@
 import { ProductCategory } from "../../types";
 
+export interface Store {
+    id: number;
+    description: string;
+    approved: boolean;
+    owner_id: string;
+    name: string;
+    image: string;
+    created_at: string;
+    email: string;
+}
+
 export interface AdminCategoriesState {
     loading: boolean;
     failed: boolean;
@@ -13,14 +24,26 @@ export interface AdminUsersState {
     users: { email: string; uid: string }[];
 }
 
+export interface AdminSellersState {
+    loading: boolean;
+    failed: boolean;
+    stores: Store[];
+}
+
 export interface AdminState {
     categories: AdminCategoriesState;
     users: AdminUsersState;
+    sellers: AdminSellersState;
 }
 
 export interface FetchUsers {
     type: AdminActionType.FetchUsers;
     value: AdminUsersState;
+}
+
+export interface FetchSellers {
+    type: AdminActionType.FetchSellers;
+    value: AdminSellersState;
 }
 
 export interface FetchCategories {
@@ -45,13 +68,15 @@ export enum AdminActionType {
     UpdateCategory = "UpdateCategory",
     FetchCategories = "FetchCategories",
     FetchUsers = "FetchUsers",
+    FetchSellers = "FetchSellers",
 }
 
 export type AdminAction =
     | AddCategory
     | UpdateCategory
     | FetchCategories
-    | FetchUsers;
+    | FetchUsers
+    | FetchSellers;
 
 export const defaultAdminState: AdminState = {
     categories: {
@@ -64,5 +89,10 @@ export const defaultAdminState: AdminState = {
         loading: false,
         failed: false,
         users: [],
+    },
+    sellers: {
+        loading: false,
+        failed: false,
+        stores: [],
     },
 };

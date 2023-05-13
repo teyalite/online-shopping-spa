@@ -48,7 +48,7 @@ export default class SignupScreen extends Component<Props, State> {
         this.setState({ isLoading: true });
         try {
             await createUserWithEmailAndPassword(auth, email, password);
-            this.setState({ isLoading: false, message: "" });
+            // this.setState({ isLoading: false, message: "" });
         } catch (error: any) {
             console.log(error);
             this.setState({

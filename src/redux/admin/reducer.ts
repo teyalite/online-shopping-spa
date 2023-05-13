@@ -10,6 +10,17 @@ function adminReducer(
     action: AdminAction
 ): AdminState {
     switch (action.type) {
+        case AdminActionType.FetchSellers:
+            state = {
+                ...state,
+                sellers: {
+                    ...state.sellers,
+                    ...action.value,
+                },
+            };
+
+            return state;
+
         case AdminActionType.FetchUsers:
             state = {
                 ...state,

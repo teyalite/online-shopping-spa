@@ -43,7 +43,7 @@ export default function AuthLayout({
      * Redirect when use is logged In with replace
      */
     if (user && !noRedirect) {
-        return <Navigate to="/compte" replace />;
+        return <Navigate to="/profile" replace />;
     }
 
     return (

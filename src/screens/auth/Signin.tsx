@@ -54,7 +54,7 @@ export default class SigninScreen extends Component<Props, State> {
         this.setState({ isLoading: true });
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            this.setState({ isLoading: false, message: "" });
+            // this.setState({ isLoading: false, message: "" });
         } catch (error: any) {
             console.log(error);
             this.setState({

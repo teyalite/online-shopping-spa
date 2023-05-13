@@ -1,5 +1,4 @@
 import { Logout } from "@mui/icons-material";
-import CategoryIcon from "@mui/icons-material/Category";
 import GroupIcon from "@mui/icons-material/Group";
 import HomeIcon from "@mui/icons-material/Home";
 import StoreIcon from "@mui/icons-material/Store";
@@ -12,53 +11,29 @@ import Typography from "@mui/material/Typography";
 import { SxProps } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Stack from "@mui/system/Stack";
+import { signOut } from "firebase/auth";
 import { ReactNode, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { AdminAuthContext } from "../../config/admin.context";
+import { AuthContext } from "../../config/auth.context";
+import { auth } from "../../config/firebase";
 import { theme } from "../../utils/theme";
 import Logo from "../Logo";
-import { Values } from "./BottomNavigation";
-import { ADMIN_TOKEN_KEY } from "../../utils/values";
-
-/**
- * Get tab value
- * @param pathname
- * @returns
- */
-function getBarValue(pathname: string): Values {
-    if (pathname.startsWith("/admin/categories")) {
-        return Values.Categories;
-    }
-
-    if (pathname.startsWith("/admin/sellers")) {
-        return Values.Sellers;
-    }
-
-    if (pathname.startsWith("/admin/users")) {
-        return Values.Users;
-    }
-
-    if (["/admin", "/admin/"].includes(pathname)) {
-        return Values.Home;
-    }
-
-    return Values.Unknown;
-}
+import { Values, getTabValue } from "./BottomNavigation";
 
 export default function AppBar() {
     const matches = useMediaQuery(theme.breakpoints.down("md"));
     const location = useLocation();
-    const { loading, failed, admin, setAdmin } = useContext(AdminAuthContext);
-    const notLogged = loading || failed || !admin;
-    const barValue = getBarValue(location.pathname);
+    const { loading, user } = useContext(AuthContext);
+    const barValue = getTabValue(location.pathname);
 
     const logout = () => {
-        try {
-            localStorage.removeItem(ADMIN_TOKEN_KEY);
-        } catch (error) {
-            console.log(error);
-        }
-        setAdmin(null);
+        signOut(auth)
+            .then(() => {
+                // Sign-out successful.
+            })
+            .catch((error: any) => {
+                console.log(error);
+            });
     };
 
     return (
@@ -73,17 +48,17 @@ export default function AppBar() {
                     spacing={{ xs: 0, md: 2, lg: 5 }}
                 >
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <Logo disabled={notLogged} />
-                        <Typography fontWeight="bold">Adminstrator</Typography>
+                        <Logo disabled={loading} />
+                        <Typography fontWeight="bold">Seller</Typography>
                     </Stack>
 
-                    {!notLogged && (
+                    {!loading && (
                         <Stack
                             direction="row"
                             alignItems="center"
                             spacing={{ xs: 1, lg: 3.5 }}
                         >
-                            {!matches && (
+                            {!matches && user?.shop?.approved && (
                                 <>
                                     <Item
                                         icon={<HomeIcon />}
@@ -92,24 +67,16 @@ export default function AppBar() {
                                         selected={barValue === Values.Home}
                                     />
                                     <Item
-                                        icon={<CategoryIcon />}
-                                        label="Categories"
-                                        href="/admin/categories"
-                                        selected={
-                                            barValue === Values.Categories
-                                        }
-                                    />
-                                    <Item
                                         icon={<StoreIcon />}
-                                        label="Sellers"
-                                        href="/admin/sellers"
-                                        selected={barValue === Values.Sellers}
+                                        label="Products"
+                                        href="/seller/products"
+                                        selected={barValue === Values.Products}
                                     />
                                     <Item
                                         icon={<GroupIcon />}
-                                        label="Users"
-                                        href="/admin/users"
-                                        selected={barValue === Values.Users}
+                                        label="Orders"
+                                        href="/seller/orders"
+                                        selected={barValue === Values.Orders}
                                     />
                                 </>
                             )}

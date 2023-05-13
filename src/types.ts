@@ -1,10 +1,22 @@
 import { User } from "firebase/auth";
 
-export interface UserType extends User {}
+export interface Shop {
+    name: string;
+    image: string;
+    id: string;
+    owner_id: string;
+    description: string;
+    approved: boolean;
+}
+
+export interface UserType extends User {
+    shop: null | undefined | Shop;
+}
 
 export interface AuthContextType {
     user: null | UserType;
     loading: boolean;
+    setUser: (user: UserType) => void;
 }
 
 export interface Admin {

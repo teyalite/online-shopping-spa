@@ -1,8 +1,7 @@
 import axios from "axios";
 import { ADMIN_TOKEN_KEY } from "./values";
+import { auth } from "../config/firebase";
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-// todo: with credentials set to false
 
 /**
  *
@@ -14,14 +13,14 @@ export function getRequest<T = any>(pathname: string): Promise<T> {
     const url = new URL(`${API_BASE_URL}${pathname}`, window.location.origin);
     console.log("GET", url.href);
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         axios({
             method: "GET",
             url: url.href,
             withCredentials: true,
 
             headers: {
-                Authorization: getToken(pathname),
+                Authorization: await getToken(pathname),
             },
         })
             .then((response) => {
@@ -44,7 +43,7 @@ export function postRequest<T = any>(pathname: string, data: any): Promise<T> {
     const url = new URL(`${API_BASE_URL}${pathname}`, window.location.origin);
     console.log("POST", url.href);
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         axios({
             method: "POST",
             url: url.href,
@@ -52,7 +51,7 @@ export function postRequest<T = any>(pathname: string, data: any): Promise<T> {
             withCredentials: true,
 
             headers: {
-                Authorization: getToken(pathname),
+                Authorization: await getToken(pathname),
             },
         })
             .then((response) => {
@@ -75,7 +74,7 @@ export function patchRequest<T = any>(pathname: string, data: any): Promise<T> {
     const url = new URL(`${API_BASE_URL}${pathname}`, window.location.origin);
     console.log("PATCH", url.href);
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         axios({
             method: "PATCH",
             url: url.href,
@@ -83,7 +82,7 @@ export function patchRequest<T = any>(pathname: string, data: any): Promise<T> {
             withCredentials: true,
 
             headers: {
-                Authorization: getToken(pathname),
+                Authorization: await getToken(pathname),
             },
         })
             .then((response) => {
@@ -106,7 +105,7 @@ export function putRequest<T = any>(pathname: string, data: any): Promise<T> {
     const url = new URL(`${API_BASE_URL}${pathname}`, window.location.origin);
     console.log("PUT", url.href);
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         axios({
             method: "PUT",
             url: url.href,
@@ -114,7 +113,7 @@ export function putRequest<T = any>(pathname: string, data: any): Promise<T> {
             withCredentials: true,
 
             headers: {
-                Authorization: getToken(pathname),
+                Authorization: await getToken(pathname),
             },
         })
             .then((response) => {
@@ -140,7 +139,7 @@ export function deleteRequest<T = any>(
     const url = new URL(`${API_BASE_URL}${pathname}`, window.location.origin);
     console.log("DELETE", url.href);
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         axios({
             method: "DELETE",
             url: url.href,
@@ -148,7 +147,7 @@ export function deleteRequest<T = any>(
             withCredentials: true,
 
             headers: {
-                Authorization: getToken(pathname),
+                Authorization: await getToken(pathname),
             },
         })
             .then((response) => {
@@ -161,7 +160,7 @@ export function deleteRequest<T = any>(
     });
 }
 
-function getToken(pathname: string): string | undefined {
+async function getToken(pathname: string): Promise<string | undefined> {
     if (
         pathname.startsWith("/admin") &&
         localStorage.getItem(ADMIN_TOKEN_KEY)
@@ -169,5 +168,9 @@ function getToken(pathname: string): string | undefined {
         return "Bearer " + localStorage.getItem(ADMIN_TOKEN_KEY);
     }
 
-    // return "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjgzODMxNTE2fQ.guVTj6rlz8iSt3vjKe5RTkrabWJ_VKKLxTgLxIrjPhE";
+    if (pathname.startsWith("/seller") || pathname.startsWith("/user")) {
+        let token = await auth.currentUser?.getIdToken();
+        sessionStorage.setItem("id_token", token ?? "");
+        return token ? "Bearer " + token : undefined;
+    }
 }

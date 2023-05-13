@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import AppBarLayout from "./components/AppBarLayout";
 import AuthLayout from "./components/auth/AuthLayout";
 import { ProtectedAdmin } from "./config/admin.context";
-import { Protected } from "./config/auth.context";
+import { Protected, SellerProtected } from "./config/auth.context";
 import NotFound from "./screens/NotFound";
 import AdminLayout from "./components/admin/Layout";
 import AdminLogin from "./screens/admin/Login";
@@ -12,18 +12,9 @@ import SigninScreen from "./screens/auth/Signin";
 import SignupScreen from "./screens/auth/Signup";
 import Categories from "./screens/admin/Categories";
 import Users from "./screens/admin/Users";
-// import SigninScreen from "./screens/auth/Signin";
-// import SignupScreen from "./screens/auth/Signup";
-// import PasswordRecovery from "./screens/auth/PasswordRecovery";
-// import AuthActionScreen from "./screens/auth/Action";
-// import NotFound from "./screens/NotFound";
-// import Layout from "./components/Layout";
-// import Favorites from "./screens/Favorites";
-// import Compte from "./screens/compte/Compte";
-// import CompteLayout from "./components/compte/CompteLayout";
-// import Home from "./screens/Home";
-// import Search from "./screens/Search";
-// import About from "./screens/About";
+import SellerLayout, { CheckSeller } from "./components/seller/Layout";
+import AdminSeller from "./screens/admin/Sellers";
+import AdminHome from "./screens/admin/Home";
 
 // todo: allow auth action even when user is logged in
 export default class App extends Component {
@@ -46,6 +37,15 @@ export default class App extends Component {
                     <Route path="signup" element={<SignupScreen />} />
                 </Route>
 
+                <Route
+                    path="/seller"
+                    element={<SellerLayout children={<SellerProtected />} />}
+                >
+                    <Route path="" element={<CheckSeller />}>
+                        <Route index element={<h1>Seller home</h1>} />
+                    </Route>
+                </Route>
+
                 <Route path="/" element={<AppBarLayout />}>
                     <Route index element={<h1>Home</h1>} />
                     <Route path="search" element={<h1>Search</h1>} />
@@ -61,11 +61,8 @@ export default class App extends Component {
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route path="login" element={<AdminLogin />} />
                     <Route path="" element={<ProtectedAdmin />}>
-                        <Route index element={<h1>Admin Home</h1>} />
-                        <Route
-                            path="sellers"
-                            element={<h1>Admin sellers</h1>}
-                        />
+                        <Route index element={<AdminHome />} />
+                        <Route path="sellers" element={<AdminSeller />} />
                         <Route path="categories" element={<Categories />} />
                         <Route path="users" element={<Users />} />
                     </Route>

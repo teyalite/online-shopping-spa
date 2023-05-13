@@ -4,11 +4,22 @@ import {
     AddCategory,
     AdminActionType,
     AdminCategoriesState,
+    AdminSellersState,
     AdminUsersState,
     FetchCategories,
+    FetchSellers,
     FetchUsers,
     UpdateCategory,
 } from "./types";
+
+export const fetchSellersCreator = (payload: AdminSellersState) => {
+    return (dispatch: Dispatch<FetchSellers>) => {
+        dispatch({
+            value: payload,
+            type: AdminActionType.FetchSellers,
+        });
+    };
+};
 
 export const fetchUsersCreator = (payload: AdminUsersState) => {
     return (dispatch: Dispatch<FetchUsers>) => {

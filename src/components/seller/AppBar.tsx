@@ -63,7 +63,7 @@ export default function AppBar() {
                                     <Item
                                         icon={<HomeIcon />}
                                         label="Home"
-                                        href="/admin"
+                                        href="/seller"
                                         selected={barValue === Values.Home}
                                     />
                                     <Item

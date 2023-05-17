@@ -39,7 +39,7 @@ export const IMAGE_ALLOWED_MIME_TYPES = [
 const MIN_WIDTH = 400;
 
 type Props = {
-    shop: {} | null;
+    shop: { name: string; description: string } | null;
     open?: boolean;
     loading: boolean;
     onSubmit: (fd: FormData) => void;
@@ -61,8 +61,8 @@ export default class SellerForm extends Component<Props, State> {
         super(props);
 
         this.state = {
-            name: "",
-            description: "",
+            name: props.shop?.name ?? "",
+            description: props.shop?.description ?? "",
 
             imageSrc: undefined,
             imageFile: undefined,
@@ -97,7 +97,30 @@ export default class SellerForm extends Component<Props, State> {
         });
     };
 
-    handleSubmit = () => {};
+    handleSubmit = () => {
+        const { shop, onSubmit } = this.props;
+        const { name, description, imageFile } = this.state;
+
+        if (name.trim().length === 0 || description.trim().length === 0) {
+            return this.setState({ triggered: true });
+        }
+
+        const fd = new FormData();
+
+        fd.append("name", name.trim());
+        fd.append("description", description.trim());
+
+        if (shop === null && !imageFile) {
+            // create a store
+            return this.setState({ triggered: true });
+        }
+
+        if (imageFile) {
+            fd.append("file", imageFile);
+        }
+
+        onSubmit(fd);
+    };
 
     render() {
         const { loading, shop, onClose, open } = this.props;

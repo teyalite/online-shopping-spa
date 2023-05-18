@@ -10,12 +10,24 @@ export const theme = createTheme({
             xl: 1536,
         },
     },
+    palette: {
+        primary: {
+            main: "#651fff",
+        },
+    },
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
                     textTransform: "none",
                 },
+            },
+        },
+        MuiGrid2: {
+            styleOverrides: {
+                // root: {
+                //     background: "yellow",
+                // },
             },
         },
         // MuiBottomNavigationAction: {

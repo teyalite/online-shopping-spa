@@ -1,1 +1,1 @@
-# Online Shopping Single Page application
+# Online Shop Single Page application

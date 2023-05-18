@@ -64,7 +64,12 @@ export default function AppBar() {
 
     return (
         <>
-            <Drawer toggle={toggle} open={open} sx={{}} />
+            <Drawer
+                toggle={toggle}
+                open={open}
+                sx={{ pt: 10, px: 5 }}
+                anchor="top"
+            />
             <MuiAppBar position="static" sx={styles.appBar} elevation={0}>
                 <Container>
                     <Toolbar

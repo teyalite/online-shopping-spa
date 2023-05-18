@@ -29,7 +29,7 @@ export default function AppBar() {
     const logout = () => {
         signOut(auth)
             .then(() => {
-                // Sign-out successful.
+                window.location.reload();
             })
             .catch((error: any) => {
                 console.log(error);

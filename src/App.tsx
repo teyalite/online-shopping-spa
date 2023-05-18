@@ -18,8 +18,8 @@ import SignupScreen from "./screens/auth/Signup";
 import SellerHome from "./screens/seller/Home";
 import SellerOrders from "./screens/seller/Orders";
 import SellerProducts from "./screens/seller/Products";
+import Home from "./screens/Home";
 
-// todo: seller edit store
 // todo: seller create store
 // todo: seller add product
 // todo: seller edit product
@@ -65,7 +65,7 @@ export default class App extends Component {
                 </Route>
 
                 <Route path="/" element={<AppBarLayout />}>
-                    <Route index element={<h1>Home</h1>} />
+                    <Route index element={<Home />} />
                     <Route path="search" element={<h1>Search</h1>} />
                     <Route path="favorites" element={<h1>Favorites</h1>} />
                     <Route path="shopcart" element={<h1>Shopcart</h1>} />

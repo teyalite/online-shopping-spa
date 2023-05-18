@@ -99,7 +99,7 @@ export class CheckSeller extends Component<Props, State> {
                 >
                     <Stack spacing={2}>
                         <Typography variant="h4" fontWeight="bold">
-                            Beginners are lucky on Online Shopping
+                            Beginners are lucky on Online Shop
                         </Typography>
                         <Typography variant="h6">
                             Have you ever sold on the marketplace? <br />

@@ -47,7 +47,7 @@ function getBarValue(pathname: string): Values {
     return Values.Unknown;
 }
 
-export default function AppBar() {
+export default function AppBar({ count }: { count: number }) {
     const matches = useMediaQuery(theme.breakpoints.down("md"));
     const [open, setOpen] = useState(false);
     const location = useLocation();
@@ -110,7 +110,7 @@ export default function AppBar() {
                             />
                             <Item
                                 icon={
-                                    <Badge badgeContent={4} color="warning">
+                                    <Badge badgeContent={count} color="warning">
                                         <ShoppingCartIcon />
                                     </Badge>
                                 }

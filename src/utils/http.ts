@@ -168,7 +168,7 @@ async function getToken(pathname: string): Promise<string | undefined> {
         return "Bearer " + localStorage.getItem(ADMIN_TOKEN_KEY);
     }
 
-    if (pathname.startsWith("/seller") || pathname.startsWith("/user")) {
+    if (pathname.startsWith("/seller") || pathname.startsWith("/customer")) {
         let token = await auth.currentUser?.getIdToken();
         sessionStorage.setItem("id_token", token ?? "");
         return token ? "Bearer " + token : undefined;

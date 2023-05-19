@@ -1,13 +1,35 @@
-import { Button, Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { ProductItem } from "../redux/home/types";
+import { Add, Remove } from "@mui/icons-material";
 
-export default function ProductReg({ product }: { product: ProductItem }) {
+export default function ProductReg({
+    product,
+    shopcart,
+    shopcartAdd,
+}: {
+    product: ProductItem;
+    shopcart: { [key: number]: number };
+    shopcartAdd: (d: { key: number; value: number }) => void;
+}) {
     const addCart = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        shopcartAdd({ key: product.id, value: 1 });
+    };
+
+    const plus = (e: MouseEvent<HTMLButtonElement>) => {
+        if (shopcart[product.id] < product.quantity) {
+            shopcartAdd({ key: product.id, value: shopcart[product.id] + 1 });
+        }
+    };
+
+    const minus = (e: MouseEvent<HTMLButtonElement>) => {
+        if (shopcart[product.id] > 0) {
+            shopcartAdd({ key: product.id, value: shopcart[product.id] - 1 });
+        }
     };
 
     return (
@@ -48,14 +70,33 @@ export default function ProductReg({ product }: { product: ProductItem }) {
                         {product.name}
                     </Typography>
                 </Stack>
-                <Button
-                    variant="contained"
-                    disableElevation
-                    sx={{ fontWeight: "bold" }}
-                    onClick={addCart}
-                >
-                    Add to cart
-                </Button>
+                {shopcart[product.id] ? (
+                    <Stack
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                        fontSize="large"
+                        onClick={(e) => e.preventDefault()}
+                    >
+                        <IconButton onClick={plus}>
+                            <Add />
+                        </IconButton>
+                        <Typography>{shopcart[product.id]}</Typography>
+                        <IconButton onClick={minus}>
+                            <Remove />
+                        </IconButton>
+                    </Stack>
+                ) : (
+                    <Button
+                        variant="contained"
+                        disableElevation
+                        sx={{ fontWeight: "bold" }}
+                        onClick={addCart}
+                    >
+                        Add to cart
+                    </Button>
+                )}
             </Stack>
         </Stack>
     );

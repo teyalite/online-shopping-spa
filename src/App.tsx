@@ -19,6 +19,7 @@ import SellerHome from "./screens/seller/Home";
 import SellerOrders from "./screens/seller/Orders";
 import SellerProducts from "./screens/seller/Products";
 import Home from "./screens/Home";
+import Shopcart from "./screens/Shopcart";
 
 // todo: seller create store
 // todo: seller add product
@@ -26,8 +27,6 @@ import Home from "./screens/Home";
 // todo: customer view product details
 // todo: customer make review
 // todo: seller reply to reviews
-// todo: customer view categories
-// todo: customer view all products
 // todo: customer add elements to cart
 // todo: customer make order
 // todo: seller process order and change status
@@ -68,7 +67,9 @@ export default class App extends Component {
                     <Route index element={<Home />} />
                     <Route path="search" element={<h1>Search</h1>} />
                     <Route path="favorites" element={<h1>Favorites</h1>} />
-                    <Route path="shopcart" element={<h1>Shopcart</h1>} />
+                    <Route path="/shopcart" element={<Protected />}>
+                        <Route index element={<Shopcart />} />
+                    </Route>
                     <Route path="/profile" element={<Protected />}>
                         <Route index element={<h1>Profile</h1>} />
                     </Route>

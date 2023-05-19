@@ -5,6 +5,7 @@ import {
     HomeActionType,
     HomeProductsState,
     FetchProducts,
+    Shopcart,
 } from "./types";
 
 export const fetchDrawerCreator = (payload: HomeDrawerState) => {
@@ -21,6 +22,15 @@ export const fetchProductsCreator = (payload: HomeProductsState) => {
         dispatch({
             value: payload,
             type: HomeActionType.FetchProducts,
+        });
+    };
+};
+
+export const shopcartCreator = (payload: { key: number; value: number }) => {
+    return (dispatch: Dispatch<Shopcart>) => {
+        dispatch({
+            value: payload,
+            type: HomeActionType.Shopcart,
         });
     };
 };

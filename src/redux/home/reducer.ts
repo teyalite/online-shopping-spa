@@ -32,6 +32,26 @@ function homeReducer(
 
             return state;
 
+        case HomeActionType.Shopcart:
+            if (action.value.key < 0) {
+                state = {
+                    ...state,
+                    shopcart: {},
+                };
+
+                return state;
+            }
+
+            state = {
+                ...state,
+                shopcart: {
+                    ...state.shopcart,
+                    [action.value.key]: action.value.value,
+                },
+            };
+
+            return state;
+
         default:
             return state;
     }

@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import ProductReg from "../components/Product";
 import HomeAppBar from "../components/navigation/HomeAppBar";
 import { AppState } from "../redux/store";
-import { fetchProductsCreator } from "../redux/home/actions";
+import { fetchProductsCreator, shopcartCreator } from "../redux/home/actions";
 import { getRequest } from "../utils/http";
 import { sleep } from "../utils/sleep";
 import Loading from "../components/Loading";
@@ -53,11 +53,13 @@ function Home(props: Props) {
 
 const mapDispatchToProps = {
     fetch: fetchProductsCreator,
+    shopcartAdd: shopcartCreator,
 };
 
 function mapStateToProps(state: AppState) {
     return {
         store: { ...state.home.products },
+        shopcart: { ...state.home.shopcart },
     };
 }
 
@@ -139,10 +141,16 @@ class HomeProducts extends Component<{ category?: number } & PropsFromRedux> {
                 </Stack>
             );
         }
+
         return (
             <>
                 {products.map((pr) => (
-                    <ProductReg product={pr} key={pr.id} />
+                    <ProductReg
+                        product={pr}
+                        key={pr.id}
+                        shopcart={this.props.shopcart}
+                        shopcartAdd={this.props.shopcartAdd}
+                    />
                 ))}
             </>
         );

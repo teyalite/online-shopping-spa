@@ -50,7 +50,7 @@ function getTabValue(pathname: string): Values {
     return Values.Unknown;
 }
 
-export default function BottomNavigation() {
+export default function BottomNavigation({ count }: { count: number }) {
     const location = useLocation();
     const matches = useMediaQuery(theme.breakpoints.up("md"));
     const value = getTabValue(location.pathname);
@@ -93,7 +93,7 @@ export default function BottomNavigation() {
                 <BottomNavigationAction
                     label="Shopcart"
                     icon={
-                        <Badge badgeContent={4} color="warning">
+                        <Badge badgeContent={count} color="warning">
                             <ShoppingCartIcon />
                         </Badge>
                     }

@@ -4,8 +4,14 @@ import { Outlet } from "react-router-dom";
 import AppBar from "./navigation/AppBar";
 import BottomNavigation from "./BottomNavigation";
 import Footer from "./Footer";
+import { AppState } from "../redux/store";
+import { ConnectedProps, connect } from "react-redux";
 
-export default function AppBarLayout() {
+function AppBarLayout(props: PropsFromRedux) {
+    const count = Object.keys(props.shopcart).filter(
+        (x) => props.shopcart[Number(x)] > 0
+    ).length;
+
     return (
         <Box
             style={{
@@ -15,7 +21,7 @@ export default function AppBarLayout() {
                 width: "100%",
             }}
         >
-            <AppBar />
+            <AppBar count={count} />
             <Stack
                 sx={{
                     paddingTop: { xs: 0, md: 0 },
@@ -28,7 +34,20 @@ export default function AppBarLayout() {
                 <Outlet />
             </Stack>
             <Footer />
-            <BottomNavigation />
+            <BottomNavigation count={count} />
         </Box>
     );
 }
+
+const mapDispatchToProps = {};
+
+function mapStateToProps(state: AppState) {
+    return {
+        shopcart: { ...state.home.shopcart },
+    };
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(AppBarLayout);

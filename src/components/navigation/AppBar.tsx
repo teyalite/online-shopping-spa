@@ -28,10 +28,6 @@ import CloseIcon from "@mui/icons-material/Close";
  * @returns
  */
 function getBarValue(pathname: string): Values {
-    if (pathname.startsWith("/favorites")) {
-        return Values.Favorites;
-    }
-
     if (pathname.startsWith("/profile")) {
         return Values.Profile;
     }
@@ -101,12 +97,6 @@ export default function AppBar({ count }: { count: number }) {
                                 label="Home"
                                 href="/"
                                 selected={barValue === Values.Home}
-                            />
-                            <Item
-                                icon={<FavoriteIcon />}
-                                label="Favorites"
-                                href="/favorites"
-                                selected={barValue === Values.Favorites}
                             />
                             <Item
                                 icon={

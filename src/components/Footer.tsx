@@ -43,11 +43,6 @@ const HOME = {
     href: "/",
 };
 
-const FAVORITES = {
-    label: "Favorites",
-    href: "/favorites",
-};
-
 const SELLER = {
     label: "Seller",
     href: "/seller",
@@ -62,7 +57,7 @@ const FOOTER_MIDDLE_SECTION: {
     label: string;
     href: string;
     isExternal?: boolean;
-}[] = [HOME, FAVORITES, SELLER, ADMIN];
+}[] = [HOME, SELLER, ADMIN];
 
 export default function Footer() {
     return (

@@ -23,7 +23,7 @@ class Shopcart extends Component<PropsFromRedux, State> {
     constructor(props: PropsFromRedux) {
         super(props);
         this.state = {
-            loading: !true,
+            loading: true,
             failed: false,
             products: [],
             red: false,
@@ -176,6 +176,9 @@ class Shopcart extends Component<PropsFromRedux, State> {
                         pb: 6,
                     }}
                 >
+                    {f_products.length > 0 && (
+                        <Typography variant="h5">Your shopcart</Typography>
+                    )}
                     {this.body(f_products)}
                     {f_products.length > 0 && (
                         <Stack

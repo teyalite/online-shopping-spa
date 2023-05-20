@@ -10,7 +10,6 @@ import {
 import { Navigate, Outlet } from "react-router-dom";
 import LoadingBox from "../components/LoadingBox";
 import { AuthContextType, UserType } from "../types";
-import { sleep } from "../utils/sleep";
 import { auth } from "./firebase";
 
 export const AuthContext = createContext<AuthContextType>({
@@ -25,8 +24,6 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            await sleep(2);
-
             if (user) {
                 setUser({ ...user, shop: undefined });
             } else {

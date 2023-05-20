@@ -75,7 +75,7 @@ export default class SigninScreen extends Component<Props, State> {
                 onSubmit={this.onSubmit}
                 buttonText="Login"
             >
-                <Link
+                {/* <Link
                     to="/auth/pwd-recov"
                     style={{ ...linkStyle, alignSelf: "center" }}
                 >
@@ -86,7 +86,7 @@ export default class SigninScreen extends Component<Props, State> {
                     >
                         Forgot your password ?
                     </Typography>
-                </Link>
+                </Link> */}
                 <Separator />
                 <SignupButton />
             </AuthForm>

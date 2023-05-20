@@ -20,18 +20,16 @@ import SellerOrders from "./screens/seller/Orders";
 import SellerProducts from "./screens/seller/Products";
 import Home from "./screens/Home";
 import Shopcart from "./screens/Shopcart";
+import Profile from "./screens/Profile";
+import Order from "./screens/Order";
+import ProdDetails from "./screens/ProdDetails";
+import Search from "./screens/Search";
 
 // todo: seller create store
 // todo: seller add product
 // todo: seller edit product
-// todo: customer view product details
-// todo: customer make review
-// todo: seller reply to reviews
-// todo: customer add elements to cart
-// todo: customer make order
-// todo: seller process order and change status
-// todo: customer see order status
-// todo: customer change password
+// todo: admin process order and change status
+// todo: add store to detials
 
 export default class App extends Component {
     componentDidMount(): void {
@@ -65,14 +63,19 @@ export default class App extends Component {
 
                 <Route path="/" element={<AppBarLayout />}>
                     <Route index element={<Home />} />
-                    <Route path="search" element={<h1>Search</h1>} />
-                    <Route path="favorites" element={<h1>Favorites</h1>} />
+                    <Route path="/search/:text" element={<Search />} />
                     <Route path="/shopcart" element={<Protected />}>
                         <Route index element={<Shopcart />} />
                     </Route>
                     <Route path="/profile" element={<Protected />}>
-                        <Route index element={<h1>Profile</h1>} />
+                        <Route index element={<Profile />} />
                     </Route>
+
+                    <Route path="/orders/:orderId" element={<Order />} />
+                    <Route
+                        path="/product/:productId"
+                        element={<ProdDetails />}
+                    />
 
                     <Route path="*" element={<NotFound />} />
                 </Route>

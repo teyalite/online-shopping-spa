@@ -3,13 +3,12 @@ import Stack from "@mui/material/Stack";
 import { Component } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import Loading from "../components/Loading";
 import ProductReg from "../components/Product";
 import HomeAppBar from "../components/navigation/HomeAppBar";
-import { AppState } from "../redux/store";
 import { fetchProductsCreator, shopcartCreator } from "../redux/home/actions";
+import { AppState } from "../redux/store";
 import { getRequest } from "../utils/http";
-import { sleep } from "../utils/sleep";
-import Loading from "../components/Loading";
 
 type Props = PropsFromRedux;
 

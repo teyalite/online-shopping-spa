@@ -11,7 +11,6 @@ import { Navigate, Outlet } from "react-router-dom";
 import Loading from "../components/Loading";
 import { Admin, AdminAuthContextType } from "../types";
 import { getRequest } from "../utils/http";
-import { sleep } from "../utils/sleep";
 
 export const AdminAuthContext = createContext<AdminAuthContextType>({
     admin: null,
@@ -35,7 +34,6 @@ export function AdminAuthContextProvider({ children }: PropsWithChildren) {
         setFailed(false);
 
         try {
-            await sleep(0);
             const admin = await getRequest<Admin>("/admin/auth/");
             setLoading(false);
             setFailed(false);

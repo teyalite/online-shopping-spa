@@ -2,6 +2,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { IconButton } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import { alpha, styled } from "@mui/material/styles";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBox = styled("div")(({ theme }) => ({
     position: "relative",
@@ -45,13 +47,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Search() {
+    const [val, setVal] = useState("");
+    const navigate = useNavigate();
+
     return (
         <SearchBox>
             <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                value={val}
+                onChange={(e) => setVal(e.target.value)}
             />
-            <IconButton>
+            <IconButton onClick={() => navigate("/search/" + val)}>
                 <SearchIcon />
             </IconButton>
         </SearchBox>

@@ -14,7 +14,6 @@ import { theme } from "../utils/theme";
 
 export enum Values {
     Home,
-    Favorites,
     Profile,
     Catalog,
     Shopcart,
@@ -27,10 +26,6 @@ export enum Values {
  * @returns
  */
 function getTabValue(pathname: string): Values {
-    if (pathname.startsWith("/favorites")) {
-        return Values.Favorites;
-    }
-
     if (pathname.startsWith("/profile")) {
         return Values.Profile;
     }
@@ -87,7 +82,7 @@ export default function BottomNavigation({ count }: { count: number }) {
                     value={Values.Catalog}
                     onClick={onClick}
                     LinkComponent={"a"}
-                    href={"/search"}
+                    href={"/search/a"}
                     sx={styles.bottomNavigationAction}
                 />
                 <BottomNavigationAction
@@ -101,15 +96,6 @@ export default function BottomNavigation({ count }: { count: number }) {
                     onClick={onClick}
                     LinkComponent={"a"}
                     href={"/shopcart"}
-                    sx={styles.bottomNavigationAction}
-                />
-                <BottomNavigationAction
-                    label="Favorites"
-                    icon={<FavoriteIcon />}
-                    value={Values.Favorites}
-                    onClick={onClick}
-                    LinkComponent={"a"}
-                    href={"/favorites"}
                     sx={styles.bottomNavigationAction}
                 />
                 <BottomNavigationAction

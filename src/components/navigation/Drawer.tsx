@@ -1,23 +1,19 @@
-import MailIcon from "@mui/icons-material/Mail";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import { Stack, Typography } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { SxProps } from "@mui/material/styles";
 import { Component } from "react";
 import { ConnectedProps, connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchDrawerCreator } from "../../redux/home/actions";
 import { AppState } from "../../redux/store";
-import { getRequest } from "../../utils/http";
 import { categoriesHelper } from "../../screens/admin/Categories";
-import { Stack, Typography } from "@mui/material";
-import Loading from "../Loading";
-import { sleep } from "../../utils/sleep";
-import { Link } from "react-router-dom";
 import { ProductCategory } from "../../types";
+import { getRequest } from "../../utils/http";
+import Loading from "../Loading";
 import Logo from "../Logo";
 
 type Props = PropsFromRedux & {
@@ -48,7 +44,6 @@ class Drawer extends Component<Props> {
 
         try {
             const categories = await getRequest("/categories");
-            await sleep(1);
 
             fetch({
                 ...this.props.store,

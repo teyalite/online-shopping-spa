@@ -80,7 +80,7 @@ export default function BottomNavigation() {
                     href={"/seller/products"}
                     sx={styles.bottomNavigationAction}
                 />
-                <BottomNavigationAction
+                {/* <BottomNavigationAction
                     label="Orders"
                     icon={<GroupIcon />}
                     value={Values.Orders}
@@ -88,7 +88,7 @@ export default function BottomNavigation() {
                     LinkComponent={"a"}
                     href={"/seller/orders"}
                     sx={styles.bottomNavigationAction}
-                />
+                /> */}
             </MuiBottomNavigation>
         </Paper>
     );

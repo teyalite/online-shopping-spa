@@ -3,7 +3,7 @@ import { Component, PropsWithChildren } from "react";
 import { AuthContext } from "../../config/auth.context";
 import SellerForm from "./SellerForm";
 import { AuthContextType } from "../../types";
-import { getRequest } from "../../utils/http";
+import { getRequest, postRequest } from "../../utils/http";
 import Loading from "../Loading";
 import AppBar from "./AppBar";
 import BottomNavigation from "./BottomNavigation";
@@ -64,7 +64,18 @@ export class CheckSeller extends Component<Props, State> {
         }
     };
 
-    submitSellerForm = async (fd: FormData) => {};
+    submitSellerForm = async (fd: FormData) => {
+        const { setUser, user } = this.context as AuthContextType;
+        const usr = user!;
+
+        try {
+            const store = await postRequest("/seller/", fd);
+            setUser({ ...usr, shop: store });
+            this.setState({ localLoading: false });
+        } catch (error) {
+            this.setState({ localLoading: false });
+        }
+    };
 
     static contextType = AuthContext;
 

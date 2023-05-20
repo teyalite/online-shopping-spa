@@ -72,12 +72,12 @@ export default function AppBar() {
                                         href="/seller/products"
                                         selected={barValue === Values.Products}
                                     />
-                                    <Item
+                                    {/* <Item
                                         icon={<GroupIcon />}
                                         label="Orders"
                                         href="/seller/orders"
                                         selected={barValue === Values.Orders}
-                                    />
+                                    /> */}
                                 </>
                             )}
                             <Button

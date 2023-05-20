@@ -51,14 +51,14 @@ export default function Product({
                         {product.name}
                     </Typography>
                 </Stack>
-                <Button
+                {/* <Button
                     variant="contained"
                     disableElevation
                     sx={{ fontWeight: "bold" }}
                     onClick={editProduct}
                 >
                     Edit product
-                </Button>
+                </Button> */}
             </Stack>
         </Stack>
     );

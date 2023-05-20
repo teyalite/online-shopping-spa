@@ -8,16 +8,21 @@ import Product from "../../components/seller/Product";
 import { fetchProductsCreator } from "../../redux/seller/actions";
 import { ProductItem } from "../../redux/seller/types";
 import { AppState } from "../../redux/store";
-import { getRequest } from "../../utils/http";
+import { getRequest, postRequest } from "../../utils/http";
+import ProductForm from "../../components/seller/ProductForm";
 
 type Props = {} & PropsFromRedux;
 
-type State = {};
+type State = {
+    openForm: boolean;
+};
 
 class SellerProducts extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = {};
+        this.state = {
+            openForm: false,
+        };
     }
 
     componentDidMount(): void {
@@ -46,8 +51,8 @@ class SellerProducts extends Component<Props, State> {
                 ...this.props.store,
                 loading: false,
                 failed: false,
-                products: data.products,
-                categories: data.categories,
+                products: Array.isArray(data) ? [] : data.products,
+                categories: Array.isArray(data) ? [] : data.categories,
             });
         } catch (error) {
             fetch({
@@ -58,7 +63,15 @@ class SellerProducts extends Component<Props, State> {
         }
     };
 
-    addProduct = () => {};
+    addProduct = () => {
+        this.setState({ openForm: true });
+    };
+
+    submit = async (fd: FormData) => {
+        try {
+            console.log(await postRequest("/seller/product", fd));
+        } catch (error) {}
+    };
 
     render() {
         const { products, loading, failed, categories } = this.props.store;
@@ -77,6 +90,12 @@ class SellerProducts extends Component<Props, State> {
 
         return (
             <Stack spacing={3}>
+                <ProductForm
+                    open={this.state.openForm}
+                    onSubmit={this.submit}
+                    onClose={() => this.setState({ openForm: false })}
+                    loading={false}
+                />
                 <Stack
                     spacing={2}
                     direction={{ xs: "column", sm: "row" }}

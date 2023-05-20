@@ -24,12 +24,11 @@ import Profile from "./screens/Profile";
 import Order from "./screens/Order";
 import ProdDetails from "./screens/ProdDetails";
 import Search from "./screens/Search";
+import Shop from "./screens/Shop";
 
 // todo: seller create store
 // todo: seller add product
 // todo: seller edit product
-// todo: admin process order and change status
-// todo: add store to detials
 
 export default class App extends Component {
     componentDidMount(): void {
@@ -70,13 +69,12 @@ export default class App extends Component {
                     <Route path="/profile" element={<Protected />}>
                         <Route index element={<Profile />} />
                     </Route>
-
                     <Route path="/orders/:orderId" element={<Order />} />
                     <Route
                         path="/product/:productId"
                         element={<ProdDetails />}
                     />
-
+                    <Route path="/store/:shopId" element={<Shop />} />
                     <Route path="*" element={<NotFound />} />
                 </Route>
 

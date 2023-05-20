@@ -1,9 +1,9 @@
-import { Box, Button, Paper } from "@mui/material";
+import { Box, Button, Paper, Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { ChangeEvent, Component } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import ProductOrd from "../components/ProductOrd";
 import HomeAppBar from "../components/navigation/HomeAppBar";
@@ -134,6 +134,16 @@ class ProdDetailsComp extends Component<Props, State> {
                     <Typography>
                         Category: {" " + product.product.product_category.name}
                     </Typography>
+
+                    <Typography>
+                        Store:{" "}
+                        <Link
+                            to={"/store/" + product.product.store.id}
+                            style={{ textDecoration: "underline" }}
+                        >
+                            {product.product.store.name}
+                        </Link>
+                    </Typography>
                     <ImageList sx={{ width: "100%", height: "auto" }}>
                         {product.product.images.map((item: string) => (
                             <ImageListItem
@@ -170,7 +180,6 @@ class ProdDetailsComp extends Component<Props, State> {
                                 <Typography>{re.review}</Typography>
                             </Stack>
                         ))}
-
                         {user && (
                             <Stack
                                 direction={"column"}

@@ -19,18 +19,14 @@ export default function ProductOrd({ product }: { product: ProductItem }) {
             component={Link}
             to={"/product/" + product.id}
         >
-            <Box
-                sx={{
-                    width: {
-                        xs: "calc(100% - 10px",
-                        sm: "calc(100% - 10px",
-                        md: "calc(100% - 10px",
-                    },
-                    height: "180px",
-                }}
+            <img
                 src={product.images[0]}
                 alt={product.name}
-                component="img"
+                style={{
+                    width: "calc(100% - 10px)",
+                    height: "180px",
+                    objectFit: "cover",
+                }}
             />
             <Stack flexGrow={1} width="100%" sx={{}} p={0.5} spacing={1}>
                 <Stack spacing={0.5}>

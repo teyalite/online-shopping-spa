@@ -71,7 +71,7 @@ export default class Profile extends Component<{}, State> {
             >
                 <HomeAppBar />
                 <Typography variant="h5" sx={{ mb: 3 }}>
-                    Hello {user.email?.split("@")[0]} our orders appear here
+                    Hello {user.email?.split("@")[0]}, your orders appear here
                 </Typography>
                 <Stack direction="column" spacing={3}>
                     {orders.map((or) => (
